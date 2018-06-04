@@ -8,6 +8,8 @@
     $conn = new mysqli($host, $user, $password, $database);
 
 	if($conn){
+        $conn->set_charset("utf8");
+
 		$query = "SELECT * FROM `qusasat` AS q,`categories` AS c "
 			. "WHERE q.category=c.id ORDER BY RAND() LIMIT 0,1";
 		$result = $conn->query($query);
