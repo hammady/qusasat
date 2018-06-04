@@ -5,29 +5,26 @@
     $password = $cleardb_url["pass"];
     $database = substr($cleardb_url["path"],1);
 
-    echo $host, "<br/>";
-    echo $user, "<br/>";
-    echo $password, "<br/>";
-    echo $database, "<br/>";
+    $conn = mysql_connect($host, $user, $password);
 
-    // $linkID = mysql_connect($host, $user, $password);
-    //
-	// if($linkID){
-	// 	mysql_set_charset('utf8');
-    //
-	// 	mysql_select_db($database, $linkID);
-    //
-	// 	$query = "SELECT * FROM `qusasat` AS q,`categories` AS c "
-	// 		. "WHERE q.category=c.id ORDER BY RAND() LIMIT 0,1";
-	// 	$resultID = mysql_query($query, $linkID);
-	// 	$row = mysql_fetch_assoc($resultID);
-    //
-	// 	$qusasa = $row['qusasa'];
-	// 	$category = $row['category'];
-	// } else {
-	// 	$qusasa = "مصر غارقة في دوامة: كيف أعمل وأنت لا تعطيني مالاً؟.. كيف أعطيك مالاً وأنت لا تعمل؟";
-	// 	$category = "قصاصات عن السياسة";
-	// }
+	if($conn){
+		mysql_set_charset('utf8');
+
+		mysql_select_db($database, $conn);
+
+		$query = "SELECT * FROM `qusasat` AS q,`categories` AS c "
+			. "WHERE q.category=c.id ORDER BY RAND() LIMIT 0,1";
+		$resultID = mysql_query($query, $conn);
+		$row = mysql_fetch_assoc($resultID);
+
+		$qusasa = $row['qusasa'];
+		$category = $row['category'];
+	} else {
+		$qusasa = "مصر غارقة في دوامة: كيف أعمل وأنت لا تعطيني مالاً؟.. كيف أعطيك مالاً وأنت لا تعمل؟";
+		$category = "قصاصات عن السياسة";
+	}
+
+    echo $qusasa;
 ?>
 <!--
 <html>
