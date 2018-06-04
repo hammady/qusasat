@@ -1,14 +1,14 @@
 <?php
-    $cleardb_url      = parse_url(getenv("CLEARDB_DATABASE_URL"));
+    $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
     $host = $cleardb_url["host"];
     $user = $cleardb_url["user"];
     $password = $cleardb_url["pass"];
     $databsae = substr($cleardb_url["path"],1);
 
-    echo $host;
-    echo $user;
-    echo $password;
-    echo $database;
+    echo $host, '\n';
+    echo $user, '\n';
+    echo $password, '\n';
+    echo $database, '\n';
 
     // $linkID = mysql_connect($host, $user, $password);
     //
@@ -29,7 +29,7 @@
 	// 	$category = "قصاصات عن السياسة";
 	// }
 ?>
-
+<!--
 <html>
 	<head>
 		<meta charset="utf-8"></meta>
@@ -49,3 +49,4 @@
 		</center>
 	</body>
 </html>
+-->
