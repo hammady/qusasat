@@ -5,10 +5,10 @@
     $password = $cleardb_url["pass"];
     $databsae = substr($cleardb_url["path"],1);
 
-    echo $host, '\n';
-    echo $user, '\n';
-    echo $password, '\n';
-    echo $database, '\n';
+    echo $host, "<br/>";
+    echo $user, "<br/>";
+    echo $password, "<br/>";
+    echo $database, "<br/>";
 
     // $linkID = mysql_connect($host, $user, $password);
     //
