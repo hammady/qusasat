@@ -1,24 +1,24 @@
 <?php
-	// $host = "kosasat.db.3406788.hostedresource.com";
-	// $user = "kosasat";
-	// $pass = "AmrEbaid7";
-	// $database = "kosasat";
-    //
-	// $linkID = mysql_connect($host, $user, $pass);
-    //
-	// if($linkID){
-	// 	mysql_set_charset('utf8');
-    //
-	// 	mysql_select_db($database, $linkID);
-    //
-	// 	$query = "SELECT * FROM `kosasat` AS k,`categories` AS c "
-	// 		. "WHERE k.category=c.id ORDER BY RAND() LIMIT 0,1";
-	// 	$resultID = mysql_query($query, $linkID);
-	// 	$row = mysql_fetch_assoc($resultID);
-    //
-	// 	$kosasa = $row['kosasa'];
-	// 	$category = $row['category'];
-	// } else {
+	$host = "us-cdbr-iron-east-04.cleardb.net";
+	$user = "b84db3a0b45258";
+	$pass = "350fabd5";
+	$database = "heroku_6d357e957b92f91";
+
+    $linkID = mysql_connect($host, $user, $pass);
+
+	if($linkID){
+		mysql_set_charset('utf8');
+
+		mysql_select_db($database, $linkID);
+
+		$query = "SELECT * FROM `qusasat` AS q,`categories` AS c "
+			. "WHERE q.category=c.id ORDER BY RAND() LIMIT 0,1";
+		$resultID = mysql_query($query, $linkID);
+		$row = mysql_fetch_assoc($resultID);
+
+		$qusasa = $row['qusasa'];
+		$category = $row['category'];
+	} else {
 		$qusasa = "مصر غارقة في دوامة: كيف أعمل وأنت لا تعطيني مالاً؟.. كيف أعطيك مالاً وأنت لا تعمل؟";
 		$category = "قصاصات عن السياسة";
 	// }
