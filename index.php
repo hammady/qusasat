@@ -5,17 +5,13 @@
     $password = $cleardb_url["pass"];
     $database = substr($cleardb_url["path"],1);
 
-    $conn = mysql_connect($host, $user, $password);
+    $conn = new mysqli($host, $user, $password, $database);
 
 	if($conn){
-		mysql_set_charset('utf8');
-
-		mysql_select_db($database, $conn);
-
 		$query = "SELECT * FROM `qusasat` AS q,`categories` AS c "
 			. "WHERE q.category=c.id ORDER BY RAND() LIMIT 0,1";
-		$resultID = mysql_query($query, $conn);
-		$row = mysql_fetch_assoc($resultID);
+		$result = $mysqli->query($query);
+		$row = $result->fetch_assoc();
 
 		$qusasa = $row['qusasa'];
 		$category = $row['category'];
