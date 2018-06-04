@@ -1,11 +1,9 @@
 <?php
     $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-    print_r($cleardb_url); 
-
     $host = $cleardb_url["host"];
     $user = $cleardb_url["user"];
     $password = $cleardb_url["pass"];
-    $databsae = substr($cleardb_url["path"],1);
+    $database = substr($cleardb_url["path"],1);
 
     echo $host, "<br/>";
     echo $user, "<br/>";
