@@ -7,18 +7,18 @@
 
     $conn = new mysqli($host, $user, $password, $database);
 
-	// if($conn){
-	// 	$query = "SELECT * FROM `qusasat` AS q,`categories` AS c "
-	// 		. "WHERE q.category=c.id ORDER BY RAND() LIMIT 0,1";
-	// 	$result = $conn->query($query);
-	// 	$row = $result->fetch_assoc();
-    //
-	// 	$qusasa = $row['qusasa'];
-	// 	$category = $row['category'];
-	// } else {
+	if($conn){
+		$query = "SELECT * FROM `qusasat` AS q,`categories` AS c "
+			. "WHERE q.category=c.id ORDER BY RAND() LIMIT 0,1";
+		$result = $conn->query($query);
+		$row = $result->fetch_assoc();
+
+		$qusasa = $row['qusasa'];
+		$category = $row['category'];
+	} else {
 		$qusasa = "مصر غارقة في دوامة: كيف أعمل وأنت لا تعطيني مالاً؟.. كيف أعطيك مالاً وأنت لا تعمل؟";
 		$category = "قصاصات عن السياسة";
-	// }
+	}
 
     echo $qusasa
 ?>
