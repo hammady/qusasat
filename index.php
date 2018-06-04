@@ -1,1 +1,45 @@
-<?php echo "Hello World!"; ?>
+<?php
+	// $host = "kosasat.db.3406788.hostedresource.com";
+	// $user = "kosasat";
+	// $pass = "AmrEbaid7";
+	// $database = "kosasat";
+    //
+	// $linkID = mysql_connect($host, $user, $pass);
+    //
+	// if($linkID){
+	// 	mysql_set_charset('utf8');
+    //
+	// 	mysql_select_db($database, $linkID);
+    //
+	// 	$query = "SELECT * FROM `kosasat` AS k,`categories` AS c "
+	// 		. "WHERE k.category=c.id ORDER BY RAND() LIMIT 0,1";
+	// 	$resultID = mysql_query($query, $linkID);
+	// 	$row = mysql_fetch_assoc($resultID);
+    //
+	// 	$kosasa = $row['kosasa'];
+	// 	$category = $row['category'];
+	// } else {
+		$qusasa = "مصر غارقة في دوامة: كيف أعمل وأنت لا تعطيني مالاً؟.. كيف أعطيك مالاً وأنت لا تعمل؟";
+		$category = "قصاصات عن السياسة";
+	// }
+?>
+
+<html>
+	<head>
+		<meta charset="utf-8"></meta>
+	</head>
+	<body>
+		<center>
+			<div style="height:300px; width:100%; background-color:#FFFFFF; color:#000000; background-image:url('paper.png')">
+				<font size="4">
+					<b><i><center>
+						<div id="div_category"><?php echo $category;?></div>
+					</center></i></b>
+					<br/>
+					<div id="div_qusasa" dir="rtl" align="justify" style="width:95%;"><?php echo $qusasa;?></div>
+					<br/>
+				</font>
+			</div>
+		</center>
+	</body>
+</html>
