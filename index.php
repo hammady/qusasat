@@ -30,6 +30,7 @@
 		<center>
 			<div style="height:300px; width:100%; background-color:#FFFFFF; color:#000000; background-image:url('paper.png')">
 				<font size="4">
+                    <br/>
 					<b><i><center>
 						<div id="div_category"><?php echo $category;?></div>
 					</center></i></b>
