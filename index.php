@@ -10,7 +10,7 @@
 	if($conn){
 		$query = "SELECT * FROM `qusasat` AS q,`categories` AS c "
 			. "WHERE q.category=c.id ORDER BY RAND() LIMIT 0,1";
-		$result = $mysqli->query($query);
+		$result = $conn->query($query);
 		$row = $result->fetch_assoc();
 
 		$qusasa = $row['qusasa'];
