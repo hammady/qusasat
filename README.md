@@ -4,6 +4,8 @@ A web app to show a random qusasa (quote) from the book entitled:
 Quotes worth burning (قصاصات قابلة للحرق) for the renowned author
 [Dr. Ahmed Khalid Tawfik](https://en.wikipedia.org/wiki/Ahmed_Khaled_Tawfik).
 
+Included is a script (`tweet_poster.py`) that automatically posts a tweet with a random quote.
+
 ## System requirements
 1. [Docker](https://docs.docker.com/install/)
 2. There is no number 2!
@@ -52,3 +54,26 @@ docker run -it --rm -p 5000:5000 qusasat:prod
 The app supports [Heroku](https://www.heroku.com/) out of the box.
 Follow the instructions [here](https://devcenter.heroku.com/articles/container-registry-and-runtime)
 to deploy this web app using Docker.
+
+## Posting tweets
+
+Run the `tweet_poster.py` script after providing some environment variables:
+
+```bash
+docker run -it --rm --env-file .env qusasat:prod python tweet_poster.py
+```
+
+Where `.env` contains the following twitter tokens:
+
+```
+TWITTER_CONSUMER_KEY=???
+TWITTER_CONSUMER_SECRET=???
+TWITTER_ACCESS_KEY=???
+TWITTER_ACCESS_SECRET=???
+```
+
+On Heroku, you can supply those tokens using app
+[config vars](https://devcenter.heroku.com/articles/config-vars).
+To automatically send scheduled tweets, provision the
+[Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) add-on,
+and set its command to: `python tweet_poster.py`.
