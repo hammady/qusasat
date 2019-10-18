@@ -1,0 +1,6 @@
+setup:
+  addons:
+    - plan: logentries:le_tryit
+build:
+  docker:
+    web: Dockerfile
