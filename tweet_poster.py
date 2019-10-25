@@ -5,7 +5,7 @@ import tweepy
 
 
 class TweetPoster():
-    def __init__(self, twitter_config, qusasat):
+    def __init__(self, twitter_config, qusasat, dry_run=False):
         self._qusasat = qusasat
         auth = tweepy.OAuthHandler(
             twitter_config['CONSUMER_KEY'],
@@ -16,23 +16,51 @@ class TweetPoster():
             twitter_config['ACCESS_SECRET']
         )
         self._api = tweepy.API(auth)
+        self._dry_run = dry_run
+        self._max_tweet_length = 280
+        self._ellipsis = u'\u2026'
 
     def post(self):
-        quote = self._get_suitable_quote()
-        formatted = self._format_quote(quote)
-        print('About to tweet:', formatted)
-        return self._api.update_status(status=formatted)
+        response_jsons = []
+        in_reply_to = None
+        long_quote = self._qusasat.get_random_quote()
+        for quote in self._split_quote(long_quote):
+            formatted = self._format_quote(quote)
+            print('About to tweet {} characters: {}'.format(len(formatted), formatted))
+            if not self._dry_run:
+                response = self._api.update_status(status=formatted,
+                                        in_reply_to_status_id=in_reply_to)
+                json = response._json
+            else:
+                json = {'id_str': '0'}
+            response_jsons.append(json)
+            in_reply_to = json['id_str']
+        return response_jsons
 
-    def _get_suitable_quote(self):
-        while True:
-            quote = self._qusasat.get_random_quote()
-            hashtag = self.to_hashtag(quote['category'])
-            if len(quote['quote']) + len(hashtag) + 1 < 280:
-                quote['hashtag'] = hashtag
-                return quote
+    def _split_quote(self, quote):
+        hashtag = self.to_hashtag(quote['category'])
+        quotes = []
+        current_quote = ""
+        max_length = self._max_tweet_length - len(self._ellipsis) * 2
+        remaining_length = max_length - len(hashtag) - len('\n')
+        for word in quote['quote'].split(): # no arguments split on whitespaces
+            spaced_word = ' ' + word if current_quote != "" else word
+            if len(spaced_word) < remaining_length:
+                current_quote = current_quote + spaced_word
+                remaining_length -= len(spaced_word)
+            else:
+                quotes.append({'quote': current_quote + self._ellipsis})
+                current_quote = self._ellipsis + word
+                remaining_length = max_length - len(current_quote)
+        quotes.append({'quote': current_quote})
+        quotes[0]['hashtag'] = hashtag
+        return quotes
 
     def _format_quote(self, quote):
-        return '{}\n{}'.format(quote['quote'], quote['hashtag'])
+        if quote.get('hashtag'):
+            return '{}\n{}'.format(quote['hashtag'], quote['quote'])
+        else:
+            return quote['quote']
 
     @classmethod
     def to_hashtag(cls, input_string):
@@ -48,6 +76,11 @@ if __name__ == '__main__':
         'ACCESS_KEY': env['TWITTER_ACCESS_KEY'],
         'ACCESS_SECRET': env['TWITTER_ACCESS_SECRET']
     }
-    poster = TweetPoster(twitter_config, qusasat)
-    response = poster.post()
-    print("Posted a tweet:", str(response))
+    dry_run = env.get('DRY_RUN') is not None
+    poster = TweetPoster(twitter_config, qusasat, dry_run=dry_run)
+    jsons = poster.post()
+    length = len(jsons)
+    tweet_s = 'tweet' if length == 1 else 'tweets'
+    print("Posted {} {}".format(length, tweet_s))
+    for idx, json in enumerate(jsons, 1):
+        print("Tweet {}: {}".format(idx, str(json)))

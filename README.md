@@ -53,7 +53,9 @@ docker run -it --rm -p 5000:5000 qusasat:prod
 ### Heroku support
 The app supports [Heroku](https://www.heroku.com/) out of the box.
 Follow the instructions [here](https://devcenter.heroku.com/articles/container-registry-and-runtime)
-to deploy this web app using Docker.
+to deploy this web app using Heroku Container Registry.
+Another way, is to deploy by pushing the `master` branch to the `heroku` remote
+after configuring it. This is the standard and recommended way.
 
 ## Posting tweets
 
@@ -71,6 +73,14 @@ TWITTER_CONSUMER_SECRET=???
 TWITTER_ACCESS_KEY=???
 TWITTER_ACCESS_SECRET=???
 ```
+
+If you want to do a dry run (just print the tweets without posting them),
+add an environment variable to the `.env` file:
+```
+DRY_RUN=1
+```
+This is useful if you want to see how long tweets will be splitted into
+multiple tweets in a thread.
 
 On Heroku, you can supply those tokens using app
 [config vars](https://devcenter.heroku.com/articles/config-vars).
