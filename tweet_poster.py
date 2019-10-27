@@ -43,22 +43,26 @@ class TweetPoster():
         current_quote = ""
         max_length = self._max_tweet_length - len(self._ellipsis) * 2
         remaining_length = max_length - len(hashtag) - len('\n')
-        for word in quote['quote'].split(): # no arguments split on whitespaces
-            spaced_word = ' ' + word if current_quote != "" else word
+        # we process the words in reverse order so that the first iteration
+        # (last quote) contains the hashtag where we can make room for it easily
+        # otherwise, we cannot easily identify the last tweet before running
+        # out of max length at which point the hashtag may not fit
+        for word in quote['quote'].split()[::-1]: # no arguments split on whitespaces
+            spaced_word = word + ' ' if current_quote != "" else word
             if len(spaced_word) < remaining_length:
-                current_quote = current_quote + spaced_word
+                current_quote = spaced_word + current_quote
                 remaining_length -= len(spaced_word)
             else:
-                quotes.append({'quote': current_quote + self._ellipsis})
-                current_quote = self._ellipsis + word
+                quotes.append({'quote': self._ellipsis + current_quote})
+                current_quote = word + self._ellipsis
                 remaining_length = max_length - len(current_quote)
         quotes.append({'quote': current_quote})
         quotes[0]['hashtag'] = hashtag
-        return quotes
+        return reversed(quotes) # reverse quotes to maintain the correct order again
 
     def _format_quote(self, quote):
         if quote.get('hashtag'):
-            return '{}\n{}'.format(quote['hashtag'], quote['quote'])
+            return '{}\n{}'.format(quote['quote'], quote['hashtag'])
         else:
             return quote['quote']
 
