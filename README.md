@@ -1,5 +1,7 @@
 # qusasat
 
+[![HerokuDeploy](https://github.com/hammady/qusasat/actions/workflows/main.yml/badge.svg)](https://github.com/hammady/qusasat/actions/workflows/main.yml)
+
 A web app to show a random qusasa (quote) from the book entitled:
 Quotes worth burning (قصاصات قابلة للحرق) for the renowned author
 [Dr. Ahmed Khalid Tawfik](https://en.wikipedia.org/wiki/Ahmed_Khaled_Tawfik).
