@@ -1,6 +1,9 @@
 import random
 import csv
+import logging
 
+logging.basicConfig(level=logging.WARNING)
+logger = logging.getLogger(__name__)
 
 class Qusasat():
     def __init__(self, categories_file, quotes_file):
@@ -17,12 +20,12 @@ class Qusasat():
             for row in csv_reader:
                 if line_count == 0:
                     header = row
-                    print('Header found: ', header)
+                    logger.debug(f'Header found: {header}')
                     line_count += 1
                 else:
                     data[row[0]] = {k: v for k, v in zip(header, row)}
                     line_count += 1
-            print(f'Processed {line_count} lines.')
+            logger.info(f'Loaded {line_count} records from {file_name}')
         return data
 
     def _get_quote_object(self, quote_id):

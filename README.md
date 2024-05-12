@@ -89,3 +89,27 @@ On Heroku, you can supply those tokens using app
 To automatically send scheduled tweets, provision the
 [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) add-on,
 and set its command to: `python tweet_poster.py`.
+
+## Sending on Telegram
+
+The app can send quotes to a Telegram channel. To do so, you need to
+create a Telegram bot and channel, and get the bot token and the channel ID.
+Then, provide the following environment variables:
+
+```
+TELEGRAM_CHAT_ID=???
+TELEGRAM_BOT_TOKEN=???
+MESSAGES_SIGNATURE=???
+```
+
+Then, run the `telegram_sender.py` script:
+
+```bash
+docker run -it --rm --env-file .env qusasat:prod python telegram_sender.py
+```
+
+Message signatures are optional and can be used to add a signature to the end of
+each message.
+
+To generate a token for the bot and identify the channel id, check the
+official docs for [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Introduction-to-the-API).
