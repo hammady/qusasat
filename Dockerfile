@@ -10,8 +10,6 @@ COPY . /home
 
 CMD [ \
     "gunicorn", \
-    "--worker-class", \
-    "gevent", \
     "wsgi:app", \
     "--max-requests", \
     "10000", \
