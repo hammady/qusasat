@@ -1,0 +1,23 @@
+service: qusasat-telegram-sender
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+  deploymentMethod: direct
+
+functions:
+  cronHandler:
+    handler: telegram_sender.lambda_run
+    events:
+      - schedule:
+          # Everyday at 5pm UTC
+          rate: cron(0 17 * * ? *)
+          enabled: true
+
+# Install nodejs 19 then run: npm install
+plugins:
+  - serverless-python-requirements
+  - serverless-dotenv-plugin

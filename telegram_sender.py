@@ -36,5 +36,8 @@ async def bot_run(bot: MyBot):
     async with bot:
         await bot.send_post(random_post)
 
+def lambda_run(event, context):
+    run()
+
 if __name__ == '__main__':
     run()
