@@ -7,6 +7,10 @@ provider:
   runtime: python3.9
   region: us-east-1
   deploymentMethod: direct
+  httpApi:
+    cors: true
+  logs:
+    httpApi: true
 
 functions:
   cronHandler:
@@ -16,6 +20,12 @@ functions:
           # Everyday at 5pm UTC
           rate: cron(0 17 * * ? *)
           enabled: true
+  httpHandler:
+    handler: app.lambda_root
+    events:
+      - httpApi:
+          path: /
+          method: 'get'
 
 # Install nodejs 19 then run: npm install
 plugins:
