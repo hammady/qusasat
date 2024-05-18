@@ -7,6 +7,10 @@ provider:
   runtime: python3.9
   region: us-east-1
   deploymentMethod: direct
+  environment:
+    TELEGRAM_BOT_TOKEN: ${env:TELEGRAM_BOT_TOKEN}
+    TELEGRAM_CHAT_ID: ${env:TELEGRAM_CHAT_ID}
+    MESSAGES_SIGNATURE: ${env:MESSAGES_SIGNATURE}
   httpApi:
     cors: true
   logs:
@@ -21,7 +25,7 @@ functions:
           rate: cron(0 17 * * ? *)
           enabled: true
   httpHandler:
-    handler: app.lambda_root
+    handler: handler.run
     events:
       - httpApi:
           path: /
