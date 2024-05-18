@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string
+from flask import Flask, render_template
 from qusasat import Qusasat
 import base64
 
@@ -15,7 +15,7 @@ def run(event, context):
     global app, qusasat, base64_string
     quote = qusasat.get_random_quote()
     with app.app_context():
-        body = render_template_string('quote.html', 
+        body = render_template('quote.html', 
                                 category=quote['category'],
                                 quote=quote['quote'],
                                 background_image_url=f'data:image/png;base64,{base64_string}')
