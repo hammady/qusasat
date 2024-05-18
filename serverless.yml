@@ -30,4 +30,3 @@ functions:
 # Install nodejs 19 then run: npm install
 plugins:
   - serverless-python-requirements
-  - serverless-dotenv-plugin

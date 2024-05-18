@@ -38,3 +38,7 @@ jobs:
             --region ${{ vars.AWS_REGION }} \
             --stage ${{ vars.SLSSTAGE }} \
             --verbose
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          MESSAGES_SIGNATURE: ${{ vars.MESSAGES_SIGNATURE }}

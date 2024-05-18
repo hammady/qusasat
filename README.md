@@ -114,13 +114,21 @@ each message.
 To generate a token for the bot and identify the channel id, check the
 official docs for [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Introduction-to-the-API).
 
-### Deploy using AWS Lambda
+## Deploy using AWS Lambda
+
+A Github Action is provided to deploy the app to AWS Lambda.
+It is triggered on push to the `master` branch.
+To deploy manually do the following:
 
 - Install node 19
 - Install Serverless framework: `npm install -g serverless`
 - Install dependencies: `npm install`
+- Configure AWS credentials: `aws configure`
 - Deploy the app:
 
     ```bash
+    TELEGRAM_BOT_TOKEN=<bot_token> \
+    TELEGRAM_CHAT_ID=<chat_id> \
+    MESSAGES_SIGNATURE=<signature> \
     sls deploy --aws-profile <profile_name> --stage prod
     ```
